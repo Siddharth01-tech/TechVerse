@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Read Blogs | Tech Verse</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="blogs-page">
+<nav class="nav" id="nav" aria-label="Main Navigation"></nav>
+
+<main>
+  <!-- Ambient background flare -->
+  <div class="ambient-flare" style="top: 20px; right: -40px;"></div>
+
+  <section class="sec-head" style="margin-top: 20px; margin-bottom: 34px;">
+    <span class="badge" style="margin-bottom: 16px;">Curated Engineering Library</span>
+    <h1 style="font-size: clamp(34px, 5.2vw, 56px); font-weight: 800; letter-spacing: -0.03em; color: #fff; margin-bottom: 14px;">
+      Explore the <span style="background: linear-gradient(135deg, #FF6A36 0%, #FF450D 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">Tech Verse</span>
+    </h1>
+    <p style="color: var(--tx-muted); max-width: 620px; margin: 0 auto; font-size: 17px; line-height: 1.6;">
+      Discover programming, AI, web development, cybersecurity, and cloud technologies — explained simply by students, for students.
+    </p>
+  </section>
+
+  <!-- Search & Category Filters Hub -->
+  <div class="search-box-wrap">
+    <form class="sbar" id="sform" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input id="search" type="search" placeholder="Search by article title (e.g. JWT, SQL, Grid, Big-O)..." aria-label="Search articles" autocomplete="off">
+      <button class="btn sm" type="submit">Search</button>
+    </form>
+  </div>
+
+  <div class="chips" id="chips"></div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding: 0 4px;">
+    <span style="font-size: 14px; font-weight: 600; color: var(--tx-dim);" id="results-count">Articles</span>
+    <span style="font-size: 13px; color: var(--or); font-family: var(--mono); font-weight: 600;">● Live API Sync</span>
+  </div>
+
+  <!-- Articles Grid -->
+  <div class="grid" id="blogs-grid">
+    <p class="empty" style="grid-column: 1 / -1;">Loading articles...</p>
+  </div>
+</main>
+
+<footer class="foot" id="foot"></footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

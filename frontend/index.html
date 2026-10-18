@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechVerse — Explore the Tech Verse</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Ambient Futuristic Background Elements -->
+<nav class="nav" id="nav" aria-label="Main Navigation"></nav>
+
+<main class="wide">
+  <!-- HERO SECTION (GCORE FUTURISTIC STYLE) -->
+  <section class="hero">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="ambient-flare" aria-hidden="true"></div>
+    <div class="center-glow" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <span class="badge">● New articles every week</span>
+      <h1>Explore the <span class="highlight-text">Tech Verse</span></h1>
+      <p>Discover programming, AI, web development, cybersecurity and the technologies shaping our future — explained simply by students, for students.</p>
+      
+      <div class="row">
+        <a class="btn" href="blogs.html">Explore Blogs →</a>
+        <a class="btn ghost" href="write.html">Write a Blog</a>
+      </div>
+    </div>
+
+    <!-- MAIN FEATURE: ANIMATED TECH VERSE CONNECTION DIAGRAM -->
+    <div class="circuit-diagram-wrap">
+      <!-- Desktop SVG Diagram (1000px wide viewBox) -->
+      <svg class="circuit-svg" viewBox="0 0 1000 480" role="img" aria-label="Interactive Tech Verse Connection Diagram connecting 6 core technology categories">
+        <defs>
+          <!-- Arrow markers pointing outward -->
+          <marker id="arr-left" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <polygon points="8,1.5 2,5 8,8.5" fill="#FF450D" />
+          </marker>
+          <marker id="arr-right" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <polygon points="2,1.5 8,5 2,8.5" fill="#FF450D" />
+          </marker>
+
+          <!-- Linear gradients for cards -->
+          <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#16161D" />
+            <stop offset="100%" stop-color="#0E0E12" />
+          </linearGradient>
+          <linearGradient id="glowG" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF5A22" />
+            <stop offset="100%" stop-color="#FF450D" />
+          </linearGradient>
+        </defs>
+
+        <!-- 1. Circuit Track Lines (Background) -->
+        <g class="circuit-tracks">
+          <!-- Node 1: Top Left (JavaScript & Programming) -->
+          <path class="c-track" d="M 430 210 H 330 L 280 80 H 230" marker-end="url(#arr-left)" />
+          <!-- Node 2: Mid Left (Web Development) -->
+          <path class="c-track" d="M 430 240 H 230" marker-end="url(#arr-left)" />
+          <!-- Node 3: Bottom Left (Artificial Intelligence) -->
+          <path class="c-track" d="M 430 270 H 330 L 280 400 H 230" marker-end="url(#arr-left)" />
+
+          <!-- Node 4: Top Right (Cybersecurity) -->
+          <path class="c-track" d="M 570 210 H 670 L 720 80 H 770" marker-end="url(#arr-right)" />
+          <!-- Node 5: Mid Right (Data Science) -->
+          <path class="c-track" d="M 570 240 H 770" marker-end="url(#arr-right)" />
+          <!-- Node 6: Bottom Right (Cloud & DevOps) -->
+          <path class="c-track" d="M 570 270 H 670 L 720 400 H 770" marker-end="url(#arr-right)" />
+        </g>
+
+        <!-- 2. Animated Orange Light Streaks (Pulses flowing outward) -->
+        <g class="circuit-pulses">
+          <!-- Left streaks (center -> left) -->
+          <path class="c-pulse" style="animation-delay: 0s;" d="M 430 210 H 330 L 280 80 H 230" />
+          <path class="c-pulse" style="animation-delay: -1.2s;" d="M 430 240 H 230" />
+          <path class="c-pulse" style="animation-delay: -2.4s;" d="M 430 270 H 330 L 280 400 H 230" />
+
+          <!-- Right streaks (center -> right) -->
+          <path class="c-pulse" style="animation-delay: -0.6s;" d="M 570 210 H 670 L 720 80 H 770" />
+          <path class="c-pulse" style="animation-delay: -1.8s;" d="M 570 240 H 770" />
+          <path class="c-pulse" style="animation-delay: -3.0s;" d="M 570 270 H 670 L 720 400 H 770" />
+        </g>
+
+        <!-- 3. Central Chip Pins (Left, Right, Top, Bottom) -->
+        <g class="chip-pins">
+          <!-- Left Pins -->
+          <rect class="c-pin" x="412" y="195" width="18" height="6" rx="2" />
+          <rect class="c-pin" x="412" y="222" width="18" height="6" rx="2" />
+          <rect class="c-pin" x="412" y="252" width="18" height="6" rx="2" />
+          <rect class="c-pin" x="412" y="279" width="18" height="6" rx="2" />
+          <!-- Right Pins -->
+          <rect class="c-pin" x="570" y="195" width="18" height="6" rx="2" />
+          <rect class="c-pin" x="570" y="222" width="18" height="6" rx="2" />
+          <rect class="c-pin" x="570" y="252" width="18" height="6" rx="2" />
+          <rect class="c-pin" x="570" y="279" width="18" height="6" rx="2" />
+          <!-- Top Pins -->
+          <rect class="c-pin" x="455" y="152" width="6" height="18" rx="2" />
+          <rect class="c-pin" x="485" y="152" width="6" height="18" rx="2" />
+          <rect class="c-pin" x="515" y="152" width="6" height="18" rx="2" />
+          <rect class="c-pin" x="545" y="152" width="6" height="18" rx="2" />
+          <!-- Bottom Pins -->
+          <rect class="c-pin" x="455" y="310" width="6" height="18" rx="2" />
+          <rect class="c-pin" x="485" y="310" width="6" height="18" rx="2" />
+          <rect class="c-pin" x="515" y="310" width="6" height="18" rx="2" />
+          <rect class="c-pin" x="545" y="310" width="6" height="18" rx="2" />
+        </g>
+
+        <!-- 4. Central TECH VERSE Chip -->
+        <g id="central-chip">
+          <!-- Chip body -->
+          <rect class="chip-body" x="430" y="170" width="140" height="140" rx="28" fill="url(#chipGrad)" />
+          
+          <!-- Inner micro-circuit border -->
+          <rect x="442" y="182" width="116" height="116" rx="20" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.2" />
+          <rect x="446" y="186" width="108" height="108" rx="16" fill="rgba(8, 8, 12, 0.7)" />
+
+          <!-- Center AI / Quantum processor icon glyph -->
+          <path d="M 488 214 L 512 214 L 512 238 L 488 238 Z" fill="none" stroke="#FF450D" stroke-width="2" stroke-linejoin="round" />
+          <circle cx="500" cy="226" r="4" fill="#FF450D" />
+          <line x1="500" y1="208" x2="500" y2="214" stroke="#FF450D" stroke-width="1.5" />
+          <line x1="500" y1="238" x2="500" y2="244" stroke="#FF450D" stroke-width="1.5" />
+          <line x1="482" y1="226" x2="488" y2="226" stroke="#FF450D" stroke-width="1.5" />
+          <line x1="512" y1="226" x2="518" y2="226" stroke="#FF450D" stroke-width="1.5" />
+
+          <!-- TECH VERSE text -->
+          <text x="500" y="266" fill="#FFFFFF" font-family="Inter, sans-serif" font-size="14" font-weight="800" letter-spacing="0.08em" text-anchor="middle">TECH VERSE</text>
+          <text x="500" y="282" fill="#888892" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" letter-spacing="0.14em" text-anchor="middle">CORE ENGINE</text>
+        </g>
+
+        <!-- 5. Six Clickable Category Nodes -->
+
+        <!-- NODE 1: JavaScript & Programming (Top Left) -->
+        <a href="blogs.html?category=JavaScript%20%26%20Programming" class="node-link" aria-label="Explore JavaScript & Programming blogs">
+          <g transform="translate(10, 46)">
+            <rect class="node-card" width="220" height="68" />
+            <!-- Icon rounded container -->
+            <rect class="node-icon-bg" x="14" y="14" width="40" height="40" rx="12" />
+            <!-- Code icon -->
+            <g transform="translate(24, 24)" stroke="#FF450D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="node-icon-svg">
+              <polyline points="13 15 18 10 13 5" />
+              <polyline points="7 5 2 10 7 15" />
+            </g>
+            <text class="node-title" x="66" y="34">JavaScript &amp; Prog</text>
+            <text class="node-sub" x="66" y="49">Algorithms &amp; syntax →</text>
+          </g>
+        </a>
+
+        <!-- NODE 2: Web Development (Middle Left) -->
+        <a href="blogs.html?category=Web%20Development" class="node-link" aria-label="Explore Web Development blogs">
+          <g transform="translate(10, 206)">
+            <rect class="node-card" width="220" height="68" />
+            <rect class="node-icon-bg" x="14" y="14" width="40" height="40" rx="12" />
+            <!-- Globe / Web wireframe icon -->
+            <g transform="translate(24, 24)" stroke="#FF450D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="node-icon-svg">
+              <circle cx="10" cy="10" r="9" />
+              <line x1="1" y1="10" x2="19" y2="10" />
+              <path d="M10 1a14 14 0 0 1 4 9 14 14 0 0 1-4 9 14 14 0 0 1-4-9 14 14 0 0 1 4-9z" />
+            </g>
+            <text class="node-title" x="66" y="34">Web Development</text>
+            <text class="node-sub" x="66" y="49">Frontend &amp; backend →</text>
+          </g>
+        </a>
+
+        <!-- NODE 3: Artificial Intelligence (Bottom Left) -->
+        <a href="blogs.html?category=Artificial%20Intelligence" class="node-link" aria-label="Explore Artificial Intelligence blogs">
+          <g transform="translate(10, 366)">
+            <rect class="node-card" width="220" height="68" />
+            <rect class="node-icon-bg" x="14" y="14" width="40" height="40" rx="12" />
+            <!-- AI / Sparkle / Brain icon -->
+            <g transform="translate(24, 24)" stroke="#FF450D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="node-icon-svg">
+              <path d="M10 1v3M10 16v3M2 10h3M17 10h3" />
+              <circle cx="10" cy="10" r="4" />
+            </g>
+            <text class="node-title" x="66" y="34">Artificial Intelligence</text>
+            <text class="node-sub" x="66" y="49">LLMs &amp; neural nets →</text>
+          </g>
+        </a>
+
+        <!-- NODE 4: Cybersecurity (Top Right) -->
+        <a href="blogs.html?category=Cybersecurity" class="node-link" aria-label="Explore Cybersecurity blogs">
+          <g transform="translate(770, 46)">
+            <rect class="node-card" width="220" height="68" />
+            <rect class="node-icon-bg" x="14" y="14" width="40" height="40" rx="12" />
+            <!-- Shield icon -->
+            <g transform="translate(24, 24)" stroke="#FF450D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="node-icon-svg">
+              <path d="M10 19s7-3.5 7-9V4l-7-2.5L3 4v6c0 5.5 7 9 7 9z" />
+            </g>
+            <text class="node-title" x="66" y="34">Cybersecurity</text>
+            <text class="node-sub" x="66" y="49">Security &amp; exploits →</text>
+          </g>
+        </a>
+
+        <!-- NODE 5: Data Science (Middle Right) -->
+        <a href="blogs.html?category=Data%20Science" class="node-link" aria-label="Explore Data Science blogs">
+          <g transform="translate(770, 206)">
+            <rect class="node-card" width="220" height="68" />
+            <rect class="node-icon-bg" x="14" y="14" width="40" height="40" rx="12" />
+            <!-- Database / Data icon -->
+            <g transform="translate(24, 24)" stroke="#FF450D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="node-icon-svg">
+              <ellipse cx="10" cy="4" rx="8" ry="3" />
+              <path d="M18 10c0 1.66-3.58 3-8 3s-8-1.34-8-3" />
+              <path d="M2 4v12c0 1.66 3.58 3 8 3s8-1.34 8-3V4" />
+            </g>
+            <text class="node-title" x="66" y="34">Data Science</text>
+            <text class="node-sub" x="66" y="49">Analytics &amp; insights →</text>
+          </g>
+        </a>
+
+        <!-- NODE 6: Cloud & DevOps (Bottom Right) -->
+        <a href="blogs.html?category=Cloud%20%26%20DevOps" class="node-link" aria-label="Explore Cloud & DevOps blogs">
+          <g transform="translate(770, 366)">
+            <rect class="node-card" width="220" height="68" />
+            <rect class="node-icon-bg" x="14" y="14" width="40" height="40" rx="12" />
+            <!-- Cloud icon -->
+            <g transform="translate(24, 24)" stroke="#FF450D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="node-icon-svg">
+              <path d="M15 8h-1A6 6 0 1 0 7 16h8a4 4 0 0 0 0-8z" />
+            </g>
+            <text class="node-title" x="66" y="34">Cloud &amp; DevOps</text>
+            <text class="node-sub" x="66" y="49">CI/CD &amp; architecture →</text>
+          </g>
+        </a>
+      </svg>
+
+      <!-- Mobile Responsive Grid (Shown on screens <= 768px) -->
+      <div class="mobile-diagram-grid" aria-label="Tech Verse Categories">
+        <div class="mobile-chip">
+          <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,69,13,0.15);margin:0 auto 10px;display:grid;place-items:center;color:#FF450D;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+          </div>
+          <h3>TECH VERSE</h3>
+          <span>CENTRAL CORE HUB</span>
+        </div>
+
+        <a class="mobile-node-card" href="blogs.html?category=JavaScript%20%26%20Programming">
+          <div class="m-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="m-info">
+            <h4>JavaScript &amp; Prog</h4>
+            <span>Algorithms &amp; Core</span>
+          </div>
+        </a>
+
+        <a class="mobile-node-card" href="blogs.html?category=Web%20Development">
+          <div class="m-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="m-info">
+            <h4>Web Development</h4>
+            <span>Fullstack &amp; APIs</span>
+          </div>
+        </a>
+
+        <a class="mobile-node-card" href="blogs.html?category=Artificial%20Intelligence">
+          <div class="m-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div class="m-info">
+            <h4>Artificial Intelligence</h4>
+            <span>LLMs &amp; Machine Learning</span>
+          </div>
+        </a>
+
+        <a class="mobile-node-card" href="blogs.html?category=Cybersecurity">
+          <div class="m-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="m-info">
+            <h4>Cybersecurity</h4>
+            <span>Defense &amp; Exploits</span>
+          </div>
+        </a>
+
+        <a class="mobile-node-card" href="blogs.html?category=Data%20Science">
+          <div class="m-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="m-info">
+            <h4>Data Science</h4>
+            <span>Analytics &amp; Models</span>
+          </div>
+        </a>
+
+        <a class="mobile-node-card" href="blogs.html?category=Cloud%20%26%20DevOps">
+          <div class="m-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          </div>
+          <div class="m-info">
+            <h4>Cloud &amp; DevOps</h4>
+            <span>Git, Docker &amp; CI/CD</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE & ARTICLES SECTION -->
+  <section class="explore-sec" id="explore">
+    <div class="explore-container">
+      <div class="sec-head">
+        <h2>Featured &amp; Latest Articles</h2>
+        <p>Search by title or filter by specific technology domains.</p>
+      </div>
+
+      <!-- Search & Category Filters Hub -->
+      <div class="search-box-wrap">
+        <form class="sbar" id="sform" role="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input id="search" type="search" placeholder="Search by article title (e.g. JWT, SQL, Grid, Big-O)..." aria-label="Search articles" autocomplete="off">
+          <button class="btn sm" type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="chips" id="chips"></div>
+
+      <!-- Featured Spotlight Container -->
+      <div id="featured"></div>
+
+      <!-- Articles Grid -->
+      <div class="grid" id="grid">
+        <p class="empty">Loading articles...</p>
+      </div>
+
+      <div style="text-align: center; margin-top: 48px;">
+        <a class="btn ghost" href="blogs.html">Browse All Articles in Library →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALL TO ACTION -->
+  <section class="cta-sec">
+    <span class="badge">Open Community</span>
+    <h2>Have something to teach?</h2>
+    <p style="color: var(--tx-muted); max-width: 540px; margin: 0 auto 28px; font-size: 17px;">
+      Share your expertise with thousands of fellow student engineers. Publish your thoughts in minutes.
+    </p>
+    <a class="btn light" href="write.html">Write a Blog</a>
+  </section>
+</main>
+
+<footer class="foot" id="foot"></footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

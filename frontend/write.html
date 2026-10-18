@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write a blog | Tech Verse</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="nav" id="nav" aria-label="Main"></nav>
+<main>
+<div class="fwrap"><form class="fcard" id="form" novalidate>
+  <h1 id="heading">Write a blog</h1><p class="sub">Share what you know. You can save a draft and finish later.</p>
+  <label for="title">Title</label><input class="in" id="title" maxlength="140" placeholder="Give your article a clear title">
+  <label for="category">Category</label><select class="in" id="category"><option value="">Choose a category</option></select>
+  <label for="cover">Cover image URL</label><input class="in" id="cover" placeholder="assets/covers/git.svg or https://">
+  <label for="content">Article</label><textarea class="in" id="content" placeholder="Separate paragraphs with a blank line"></textarea>
+  <div class="msg" id="msg"></div>
+  <div class="acts-row"><button class="btn" type="submit" id="publish">Publish</button><button class="btn line" type="button" id="draft">Save draft</button><a class="btn line" href="my-blogs.html">Cancel</a></div>
+</form></div>
+</main>
+<footer class="foot" id="foot"></footer>
+<script src="js/main.js"></script>
+<script src="js/write.js"></script>
+</body>
+</html>
