@@ -1121,6 +1121,66 @@ textarea.in {
   resize: vertical;
 }
 
+.cover-uploader {
+  margin-top: 4px;
+}
+
+.cover-file-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.in-file {
+  font-size: 14px;
+  color: var(--tx-muted);
+  cursor: pointer;
+}
+
+.in-file::file-selector-button {
+  font: 600 13px var(--font);
+  background: var(--panel-elevated);
+  color: #fff;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: all 0.2s ease;
+}
+
+.in-file::file-selector-button:hover {
+  background: rgba(255, 69, 13, 0.15);
+  border-color: var(--or);
+  color: var(--or-bright);
+}
+
+.cover-upload-hint {
+  font-size: 12.5px;
+  color: var(--tx-dim);
+}
+
+.cover-preview-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 12px;
+  background: #14141A;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.cover-preview-box img {
+  width: 90px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  background: #0d0d12;
+}
+
 .msg {
   display: none;
   padding: 12px 16px;

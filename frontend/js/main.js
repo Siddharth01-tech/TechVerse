@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${esc(top.cover || 'assets/covers/jwt.svg')}" alt=""></section>`;
       }
       grid.innerHTML = shown.length
-        ? shown.map((b, i) => card(b, all[i] ? all[i].id : b.id)).join('')
+        ? shown.map(b => card(b, b.id)).join('')
         : '<p class="empty">No articles match your search.</p>';
     }
 

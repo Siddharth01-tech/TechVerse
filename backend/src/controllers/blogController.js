@@ -218,3 +218,23 @@ exports.toggleBookmark = async (req, res) => {
     res.status(500).json({ error: 'Failed to update bookmark' });
   }
 };
+
+exports.uploadBlogImage = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'Please select an image file to upload' });
+    }
+
+    const publicUrl = `/uploads/${req.file.filename}`;
+    res.status(201).json({
+      url: publicUrl,
+      filename: req.file.filename,
+      size: req.file.size,
+      mimetype: req.file.mimetype
+    });
+  } catch (error) {
+    console.error('uploadBlogImage error:', error);
+    res.status(500).json({ error: 'Failed to process uploaded image' });
+  }
+};
+

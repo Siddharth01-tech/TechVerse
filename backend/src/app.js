@@ -15,6 +15,10 @@ app.use('/api/comments', require('./routes/commentRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Route not found' }));
 
+// Static uploads serving
+const uploadsPath = path.join(__dirname, '../uploads');
+app.use('/uploads', express.static(uploadsPath));
+
 // Static frontend serving
 const frontendPath = path.join(__dirname, '../../frontend');
 app.use(express.static(frontendPath));

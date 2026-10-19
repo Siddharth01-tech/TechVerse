@@ -14,6 +14,76 @@
     $(field)?.addEventListener('input', () => { isDirty = true; });
   });
 
+  // Image Preview and Upload Helper
+  function updateCoverPreview(src) {
+    const box = $('cover-preview-box');
+    const img = $('cover-preview-img');
+    if (!box || !img) return;
+    if (src && src.trim()) {
+      img.src = src.trim();
+      box.style.display = 'flex';
+    } else {
+      box.style.display = 'none';
+      img.src = '';
+    }
+  }
+
+  $('cover')?.addEventListener('input', (e) => {
+    updateCoverPreview(e.target.value);
+  });
+
+  $('clear-cover-btn')?.addEventListener('click', () => {
+    $('cover').value = '';
+    const fileInput = $('cover-file');
+    if (fileInput) fileInput.value = '';
+    const hint = $('cover-upload-hint');
+    if (hint) hint.textContent = 'JPG, PNG, WEBP, or GIF (max 5MB)';
+    updateCoverPreview('');
+    isDirty = true;
+  });
+
+  $('cover-file')?.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate size limit (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('Image size cannot exceed 5MB', 'err');
+      showMsg(msg, 'Image size cannot exceed 5MB');
+      e.target.value = '';
+      return;
+    }
+
+    const hint = $('cover-upload-hint');
+    if (hint) hint.textContent = `Uploading ${file.name}...`;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const token = getToken();
+      const res = await fetch('/api/blogs/upload-image', {
+        method: 'POST',
+        headers: token ? { Authorization: 'Bearer ' + token } : {},
+        body: formData
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to upload image');
+
+      $('cover').value = data.url;
+      updateCoverPreview(data.url);
+      if (hint) hint.textContent = `Uploaded: ${file.name}`;
+      showToast('Image uploaded successfully!', 'ok');
+      isDirty = true;
+    } catch (err) {
+      showToast(err.message, 'err');
+      showMsg(msg, err.message);
+      if (hint) hint.textContent = 'Upload failed. Choose another file.';
+      e.target.value = '';
+    }
+  });
+
   if (id) {
     $('heading').textContent = 'Edit Article';
     $('publish').textContent = 'Update & Publish';
@@ -24,6 +94,8 @@
       $('category').value = b.category || '';
       $('cover').value = b.cover || '';
       $('content').value = b.content || '';
+      updateCoverPreview(b.cover || '');
+
       originalData = {
         title: b.title || '',
         category: b.category || '',
