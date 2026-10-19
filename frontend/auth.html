@@ -10,12 +10,18 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="ambient-bg" id="ambient-bg" aria-hidden="true">
+  <div class="hero-grid-bg"></div>
+  <div class="ambient-flare"></div>
+  <div class="center-glow"></div>
+</div>
 <nav class="nav" id="nav" aria-label="Main"></nav>
 <main>
 <div class="fwrap"><form class="fcard narrow" id="form" novalidate>
   <h1 id="heading">Welcome back</h1><p class="sub">Log in to like, comment and publish.</p>
   <div class="seg"><button type="button" id="tab-login" class="on">Log in</button><button type="button" id="tab-signup">Sign up</button></div>
-  <div id="name-wrap" style="display:none"><label for="name">Name</label><input class="in" id="name" autocomplete="name"></div>
+  <div id="name-wrap" style="display:none"><label for="name">Full Name</label><input class="in" id="name" autocomplete="name" placeholder="John Doe"></div>
+  <div id="username-wrap" style="display:none"><label for="username">Username (optional)</label><input class="in" id="username" placeholder="e.g. john_dev"></div>
   <label for="email">Email</label><input class="in" id="email" type="email" autocomplete="email" placeholder="you@example.com">
   <label for="password">Password</label><input class="in" id="password" type="password" autocomplete="current-password" placeholder="At least 6 characters">
   <div class="msg" id="msg"></div>

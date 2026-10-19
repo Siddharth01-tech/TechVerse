@@ -13,6 +13,13 @@ const qs = k => new URLSearchParams(location.search).get(k);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmt = d => new Date(String(d).replace(' ', 'T') + 'Z').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
+function getInitials(name = '') {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return 'TV';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 async function api(path, { method = 'GET', body } = {}) {
   const token = getToken();
   const res = await fetch('/api' + path, {
@@ -26,8 +33,66 @@ async function api(path, { method = 'GET', body } = {}) {
 }
 
 function showMsg(el, text, type = 'err') {
+  if (!el) return;
   el.textContent = text;
   el.className = 'msg show ' + type;
+}
+
+// Global Toast Notification System
+function showToast(text, type = 'ok', duration = 3500) {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `<span class="toast-dot"></span><span class="toast-text">${esc(text)}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+// Global Custom Confirmation Modal
+function confirmModal({ title = 'Confirm Action', message = 'Are you sure?', confirmText = 'Confirm', cancelText = 'Cancel', danger = false }) {
+  return new Promise((resolve) => {
+    const existing = document.getElementById('custom-modal');
+    if (existing) existing.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'custom-modal';
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML = `
+      <div class="modal-card">
+        <h3 class="modal-title">${esc(title)}</h3>
+        <p class="modal-desc">${esc(message)}</p>
+        <div class="modal-actions">
+          <button type="button" class="btn line sm" id="modal-cancel">${esc(cancelText)}</button>
+          <button type="button" class="btn sm ${danger ? 'danger' : ''}" id="modal-confirm">${esc(confirmText)}</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const cleanup = (val) => {
+      overlay.classList.add('closing');
+      setTimeout(() => overlay.remove(), 200);
+      resolve(val);
+    };
+
+    overlay.querySelector('#modal-cancel').onclick = () => cleanup(false);
+    overlay.querySelector('#modal-confirm').onclick = () => cleanup(true);
+    overlay.onclick = (e) => {
+      if (e.target === overlay) cleanup(false);
+    };
+  });
 }
 
 function requireLogin() {
@@ -36,30 +101,53 @@ function requireLogin() {
   return false;
 }
 
+function renderBackground() {
+  if (document.getElementById('ambient-bg')) return;
+  const bg = document.createElement('div');
+  bg.id = 'ambient-bg';
+  bg.className = 'ambient-bg';
+  bg.setAttribute('aria-hidden', 'true');
+  bg.innerHTML = `
+    <div class="hero-grid-bg"></div>
+    <div class="ambient-flare"></div>
+    <div class="center-glow"></div>
+  `;
+  document.body.prepend(bg);
+}
+
 function renderChrome() {
-  const page = location.pathname.split('/').pop() || 'index.html';
+  renderBackground();
+  const page = (location.pathname.split('/').pop() || 'index.html').replace(/\.html$/, '');
   const u = getUser();
-  const on = f => (page === f ? ' on' : '');
+  const on = f => (page === f.replace(/\.html$/, '') ? ' on' : '');
   const nav = document.getElementById('nav');
   if (nav) {
     nav.innerHTML =
       `<a class="brand" href="index.html"><i>&lt;/&gt;</i><b>Tech Verse</b></a>
-       <a class="l${on('index.html')}" href="index.html">Home</a>
-       <a class="l${on('blogs.html')}" href="blogs.html">Read Blogs</a>
-       <a class="l${on('write.html')}" href="write.html">Write Blog</a>
-       ${u ? `<a class="l${on('my-blogs.html')}" href="my-blogs.html">My Blogs</a><button class="cta" id="logout" type="button">Log out</button>`
-           : `<a class="cta" href="auth.html">Login</a>`}`;
+       <a class="l${on('index')}" href="index.html">Home</a>
+       <a class="l${on('blogs')}" href="blogs.html">Read Blogs</a>
+       <a class="l${on('write')}" href="write.html">Write Blog</a>
+       ${u ? `
+         <a class="l${on('profile')}" href="profile.html">Profile</a>
+         ${u.role === 'admin' ? `<a class="l${on('admin')} admin-pill" href="admin.html">Admin</a>` : ''}
+         <button class="cta" id="logout" type="button">Log out</button>
+       ` : `
+         <a class="cta" href="auth.html">Login</a>
+       `}`;
   }
   const foot = document.getElementById('foot');
   if (foot) {
-    foot.textContent = 'Tech Verse. Articles by students, for students.';
+    foot.innerHTML = `<span>Tech Verse. Articles by students, for students.</span>`;
   }
   document.getElementById('logout')?.addEventListener('click', () => {
     localStorage.removeItem('tv_token');
     localStorage.removeItem('tv_user');
     localStorage.removeItem('tkg_token');
     localStorage.removeItem('tkg_user');
-    location.href = 'index.html';
+    showToast('You have been logged out', 'info');
+    setTimeout(() => {
+      location.href = 'index.html';
+    }, 400);
   });
 }
 
@@ -92,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!e.target.dataset.c) return;
         category = e.target.dataset.c;
         chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === e.target));
-        // Update URL state without page reload
         const newUrl = category === 'All' ? 'blogs.html' : `blogs.html?category=${encodeURIComponent(category)}`;
         window.history.replaceState({}, '', newUrl);
         loadBlogs();
@@ -101,7 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadBlogs() {
       try {
-        blogsGrid.innerHTML = '<p class="empty">Loading articles...</p>';
+        blogsGrid.innerHTML = `
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+          <div class="skeleton-card"></div>
+        `;
         const qVal = search ? search.value : '';
         const list = await api(`/blogs?q=${encodeURIComponent(qVal)}&category=${encodeURIComponent(category)}`);
         if (countEl) countEl.textContent = `${list.length} article${list.length === 1 ? '' : 's'}`;
@@ -174,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <a class="btn" href="${url}">Read more →</a></div>
           <img src="${esc(top.cover || 'assets/covers/jwt.svg')}" alt=""></section>`;
       }
-      // NOTE: Bug 10 intentional preservation - card(b, all[i] ? all[i].id : b.id)
       grid.innerHTML = shown.length
         ? shown.map((b, i) => card(b, all[i] ? all[i].id : b.id)).join('')
         : '<p class="empty">No articles match your search.</p>';

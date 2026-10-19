@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Profile & Dashboard | Tech Verse</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="ambient-bg" id="ambient-bg" aria-hidden="true">
+  <div class="hero-grid-bg"></div>
+  <div class="ambient-flare"></div>
+  <div class="center-glow"></div>
+</div>
+<nav class="nav" id="nav" aria-label="Main Navigation"></nav>
+
+<main>
+  <!-- 1. PROFILE HEADER CARD -->
+  <section class="prof-card" id="profile-card">
+    <div class="prof-loading">
+      <div class="skeleton-avatar"></div>
+      <div class="skeleton-line" style="width:240px;height:28px;"></div>
+      <div class="skeleton-line" style="width:160px;height:18px;"></div>
+    </div>
+  </section>
+
+  <!-- 2. QUICK ACTIONS & METRICS ROW -->
+  <div class="dash-overview">
+    <!-- Quick Actions -->
+    <div class="dash-actions-card">
+      <h3>Quick Actions</h3>
+      <p style="color:var(--tx-muted);font-size:13.5px;margin-bottom:18px;">Jump straight into writing or exploring</p>
+      <div class="dash-actions-row">
+        <a class="btn" href="write.html" id="dash-write-btn">
+          <span>✍️</span> Write a Blog
+        </a>
+        <a class="btn ghost" href="my-blogs.html">
+          <span>📂</span> My Blogs
+        </a>
+        <a class="btn ghost" href="blogs.html">
+          <span>🔍</span> Read Blogs
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stat-grid" id="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total Articles</span>
+        <span class="stat-val" id="stat-total">0</span>
+        <span class="stat-hint">All authored content</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Published</span>
+        <span class="stat-val" id="stat-pub" style="color:#86EFAC">0</span>
+        <span class="stat-hint">Live on Tech Verse</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Saved Drafts</span>
+        <span class="stat-val" id="stat-draft" style="color:var(--tx-muted)">0</span>
+        <span class="stat-hint">Private work-in-progress</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. RECENT ARTICLES SECTION -->
+  <section class="dash-recent-wrap">
+    <div class="mhead">
+      <div>
+        <h2>Your Recent Articles</h2>
+        <p style="color:var(--tx-muted);font-size:14px;margin-top:2px;">Recent technical writings and active drafts</p>
+      </div>
+      <a class="btn line sm" href="my-blogs.html">View all articles →</a>
+    </div>
+
+    <div class="pbox paper" style="padding:16px 20px;">
+      <div id="recent-list">
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 4. EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="edit-modal" style="display:none;">
+  <div class="modal-card wide">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Profile</h3>
+      <button type="button" class="modal-close" id="close-modal">&times;</button>
+    </div>
+    <form id="edit-profile-form">
+      <label for="edit-name">Full Name</label>
+      <input class="in" id="edit-name" required maxlength="60">
+
+      <label for="edit-username">Username</label>
+      <input class="in" id="edit-username" required maxlength="30" placeholder="e.g. alex_dev">
+
+      <label for="edit-bio">Bio (max 250 characters)</label>
+      <textarea class="in" id="edit-bio" style="min-height:80px;height:90px;" placeholder="What do you build, study, or explore?"></textarea>
+
+      <label for="edit-avatar">Profile Image URL (optional)</label>
+      <input class="in" id="edit-avatar" placeholder="https://example.com/avatar.jpg">
+
+      <div class="msg" id="edit-msg" style="margin-top:12px;"></div>
+
+      <div class="modal-actions" style="margin-top:20px;">
+        <button type="button" class="btn line sm" id="cancel-edit">Cancel</button>
+        <button type="submit" class="btn sm" id="save-edit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="foot" id="foot"></footer>
+<script src="js/main.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

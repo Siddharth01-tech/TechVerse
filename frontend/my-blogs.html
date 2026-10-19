@@ -10,10 +10,35 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="ambient-bg" id="ambient-bg" aria-hidden="true">
+  <div class="hero-grid-bg"></div>
+  <div class="ambient-flare"></div>
+  <div class="center-glow"></div>
+</div>
 <nav class="nav" id="nav" aria-label="Main"></nav>
 <main>
-<div class="mhead"><h1>My blogs (<span id="count">0</span>)</h1><a class="btn" href="write.html">Write a blog</a></div>
-<div class="pbox paper"><div class="msg" id="msg" style="margin:0 0 16px"></div><div id="list"><p class="empty">Loading your articles</p></div></div>
+  <div class="mhead">
+    <div>
+      <h1>My Blogs (<span id="count">0</span>)</h1>
+      <p style="color:var(--tx-muted);margin-top:4px;font-size:14.5px">Manage your published tech insights and saved drafts</p>
+    </div>
+    <a class="btn" href="write.html">Write a blog</a>
+  </div>
+
+  <div class="tab-filter-row" id="tabs">
+    <button type="button" class="tab-btn on" data-filter="all">All (<span id="count-all">0</span>)</button>
+    <button type="button" class="tab-btn" data-filter="published">Published (<span id="count-pub">0</span>)</button>
+    <button type="button" class="tab-btn" data-filter="draft">Drafts (<span id="count-draft">0</span>)</button>
+  </div>
+
+  <div class="pbox paper">
+    <div class="msg" id="msg" style="margin:0 0 16px"></div>
+    <div id="list">
+      <div class="skeleton-item"></div>
+      <div class="skeleton-item"></div>
+      <div class="skeleton-item"></div>
+    </div>
+  </div>
 </main>
 <footer class="foot" id="foot"></footer>
 <script src="js/main.js"></script>

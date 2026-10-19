@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="ambient-bg" id="ambient-bg" aria-hidden="true">
+  <div class="hero-grid-bg"></div>
+  <div class="ambient-flare"></div>
+  <div class="center-glow"></div>
+</div>
 <nav class="nav" id="nav" aria-label="Main"></nav>
 <main>
 <div class="fwrap"><form class="fcard" id="form" novalidate>
@@ -19,7 +24,7 @@
   <label for="cover">Cover image URL</label><input class="in" id="cover" placeholder="assets/covers/git.svg or https://">
   <label for="content">Article</label><textarea class="in" id="content" placeholder="Separate paragraphs with a blank line"></textarea>
   <div class="msg" id="msg"></div>
-  <div class="acts-row"><button class="btn" type="submit" id="publish">Publish</button><button class="btn line" type="button" id="draft">Save draft</button><a class="btn line" href="my-blogs.html">Cancel</a></div>
+  <div class="acts-row"><button class="btn" type="submit" id="publish">Publish</button><button class="btn line" type="button" id="draft">Save draft</button><a class="btn line" id="cancel" href="my-blogs.html">Cancel</a></div>
 </form></div>
 </main>
 <footer class="foot" id="foot"></footer>
