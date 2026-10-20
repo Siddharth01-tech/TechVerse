@@ -137,7 +137,64 @@ function renderChrome() {
   }
   const foot = document.getElementById('foot');
   if (foot) {
-    foot.innerHTML = `<span>Tech Verse. Articles by students, for students.</span>`;
+    foot.innerHTML = `
+      <div class="foot-wrap">
+        <div class="foot-grid">
+          <!-- Col 1: About Tech Verse -->
+          <div class="foot-col foot-brand-col">
+            <a class="brand" href="index.html"><i>&lt;/&gt;</i><b>Tech Verse</b></a>
+            <span class="foot-tagline">Explore. Learn. Share.</span>
+            <p class="foot-desc">A modern technical blogging and knowledge-sharing platform for developers and students to explore articles on AI, web development, cybersecurity, and cloud computing.</p>
+          </div>
+
+          <!-- Col 2: Quick Links -->
+          <div class="foot-col">
+            <h4 class="foot-heading">Quick Links</h4>
+            <ul class="foot-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="blogs.html">Explore Blogs</a></li>
+              <li><a href="write.html">Write a Blog</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Explore Topics -->
+          <div class="foot-col">
+            <h4 class="foot-heading">Explore Topics</h4>
+            <ul class="foot-list">
+              <li><a href="blogs.html?category=Web%20Development">Web Development</a></li>
+              <li><a href="blogs.html?category=JavaScript%20%26%20Programming">JavaScript &amp; Programming</a></li>
+              <li><a href="blogs.html?category=Artificial%20Intelligence">AI &amp; Machine Learning</a></li>
+              <li><a href="blogs.html?category=Cloud%20%26%20DevOps">Cloud &amp; DevOps</a></li>
+              <li><a href="blogs.html?category=Cybersecurity">Cybersecurity</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Contact Us -->
+          <div class="foot-col">
+            <h4 class="foot-heading">Contact Us</h4>
+            <ul class="foot-list">
+              <li>
+                <a href="tel:+919876543210" class="foot-social-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                  <span>+91 98765 43210</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:support@techverse.dev" class="foot-social-link">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                  <span>support@techverse.dev</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="foot-bottom">
+          <p>&copy; 2026 Tech Verse. All rights reserved.</p>
+          <span class="foot-meta-tag">Empowering Student &amp; Developer Knowledge Sharing</span>
+        </div>
+      </div>
+    `;
   }
   document.getElementById('logout')?.addEventListener('click', () => {
     localStorage.removeItem('tv_token');
@@ -148,6 +205,85 @@ function renderChrome() {
     setTimeout(() => {
       location.href = 'index.html';
     }, 400);
+  });
+}
+
+function initCard3DTilt() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
+
+  let activeCard = null;
+  let rafId = null;
+  let targetRX = 0;
+  let targetRY = 0;
+  let currentRX = 0;
+  let currentRY = 0;
+
+  function onMouseMove(e) {
+    const cardEl = e.target.closest('.card');
+    if (!cardEl) {
+      if (activeCard) {
+        resetCard(activeCard);
+        activeCard = null;
+      }
+      return;
+    }
+
+    if (activeCard && activeCard !== cardEl) {
+      resetCard(activeCard);
+    }
+    activeCard = cardEl;
+
+    const rect = cardEl.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = (x / rect.width) * 2 - 1;
+    const py = (y / rect.height) * 2 - 1;
+
+    // Subtle 3D tilt: max 4.5 degrees on X, max 5.5 degrees on Y
+    targetRX = -py * 4.5;
+    targetRY = px * 5.5;
+
+    if (!rafId) {
+      rafId = requestAnimationFrame(animateTilt);
+    }
+  }
+
+  function animateTilt() {
+    if (!activeCard) {
+      rafId = null;
+      return;
+    }
+    currentRX += (targetRX - currentRX) * 0.18;
+    currentRY += (targetRY - currentRY) * 0.18;
+
+    activeCard.style.transform = `perspective(1000px) rotateX(${currentRX.toFixed(2)}deg) rotateY(${currentRY.toFixed(2)}deg) translateY(-5px)`;
+
+    if (Math.abs(targetRX - currentRX) > 0.05 || Math.abs(targetRY - currentRY) > 0.05) {
+      rafId = requestAnimationFrame(animateTilt);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function resetCard(cardEl) {
+    cardEl.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease';
+    cardEl.style.transform = '';
+    currentRX = 0;
+    currentRY = 0;
+    targetRX = 0;
+    targetRY = 0;
+    setTimeout(() => {
+      if (cardEl) cardEl.style.transition = '';
+    }, 400);
+  }
+
+  document.addEventListener('mousemove', onMouseMove, { passive: true });
+  document.addEventListener('mouseleave', () => {
+    if (activeCard) {
+      resetCard(activeCard);
+      activeCard = null;
+    }
   });
 }
 
@@ -163,6 +299,7 @@ function card(b, linkId = b.id) {
 
 document.addEventListener('DOMContentLoaded', () => {
   renderChrome();
+  initCard3DTilt();
 
   // 1. Dedicated Read Blogs page logic (blogs.html)
   const blogsGrid = document.getElementById('blogs-grid');
