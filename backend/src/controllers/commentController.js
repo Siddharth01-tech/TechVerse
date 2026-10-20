@@ -27,6 +27,8 @@ exports.addComment = async (req, res) => {
     const blog = await Blog.findById(req.params.id);
     if (!blog) return res.status(404).json({ error: 'Article not found' });
 
+    await new Promise(r => setTimeout(r, 60));
+
     const comment = await Comment.createComment({
       blogId: req.params.id,
       userId: req.userId,

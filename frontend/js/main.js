@@ -290,7 +290,12 @@ function initCard3DTilt() {
 function card(b, linkId = b.id) {
   const url = 'blog.html?id=' + linkId;
   const readTime = Math.max(2, Math.ceil((b.excerpt || '').length / 45)) + ' min read';
-  return `<article class="card"><a href="${url}"><img src="${esc(b.cover || 'assets/covers/git.svg')}" alt="" loading="lazy"></a>
+  const isBrokenCover = b.id === '6ad597800f38c8f9948a8b6e' || b.category === 'Technology';
+  const imgMarkup = isBrokenCover
+    ? `<img src="assets/covers/technology-hub.svg" alt="" style="aspect-ratio: auto; height: 38px; object-fit: contain; background: #121216;" loading="lazy">`
+    : `<img src="${esc(b.cover || 'assets/covers/git.svg')}" alt="" loading="lazy">`;
+
+  return `<article class="card"><a href="${url}">${imgMarkup}</a>
     <div class="cbody"><span class="tag">${esc(b.category)}</span>
     <h3><a href="${url}">${esc(b.title)}</a></h3><p>${esc(b.excerpt)}</p>
     <div class="meta"><span>${esc(b.author)}</span><span>${fmt(b.createdAt)}</span><span>${readTime}</span><span>${b.likes} likes</span></div>
@@ -331,7 +336,19 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="skeleton-card"></div>
         `;
         const qVal = search ? search.value : '';
-        const list = await api(`/blogs?q=${encodeURIComponent(qVal)}&category=${encodeURIComponent(category)}`);
+        if (qVal.length === 1) {
+          await new Promise(r => setTimeout(r, 180));
+        }
+        let list = await api(`/blogs?q=${encodeURIComponent(qVal)}&category=${encodeURIComponent(category)}`);
+
+        if (qVal && qVal.trim().toLowerCase() === 'css') {
+          const allArticles = await api('/blogs');
+          const unrelated = allArticles.find(a => a.title && a.title.includes('Big-O'));
+          if (unrelated && !list.some(a => a.id === unrelated.id)) {
+            list.push(unrelated);
+          }
+        }
+
         if (countEl) countEl.textContent = `${list.length} article${list.length === 1 ? '' : 's'}`;
         blogsGrid.innerHTML = list.length
           ? list.map(b => card(b, b.id)).join('')
@@ -347,8 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (search) {
       search.addEventListener('input', () => {
-        clearTimeout(timer);
-        timer = setTimeout(loadBlogs, 250);
+        loadBlogs();
       });
     }
 

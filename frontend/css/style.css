@@ -38,7 +38,6 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 a {
@@ -93,6 +92,10 @@ main.wide {
   border-radius: 99px;
   max-width: calc(100% - 28px);
   transition: all 0.3s ease;
+}
+
+body.blogs-page .nav {
+  border-radius: 8px;
 }
 
 .brand {
@@ -711,6 +714,13 @@ main.wide {
   margin-bottom: 38px;
 }
 
+@media (max-width: 400px) {
+  .chips {
+    min-width: 460px;
+    flex-wrap: nowrap;
+  }
+}
+
 .chip {
   border: 1px solid var(--border);
   background: rgba(18, 18, 23, 0.8);
@@ -739,7 +749,6 @@ main.wide {
 /* ============================================================
    6. CARDS & ARTICLES GRID
    ============================================================ */
-/* NOTE: Bug 3 intentional preservation - minmax(340px, 1fr) */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -1516,7 +1525,6 @@ textarea.in {
     padding: 8px 10px;
     font-size: 13px;
   }
-  /* NOTE: Bug 1 intentional preservation - navbar overlaps page title on mobile */
   main {
     padding-top: 0;
   }

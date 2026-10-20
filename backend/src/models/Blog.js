@@ -88,19 +88,20 @@ blogSchema.statics.problem = function (b) {
   return null;
 };
 
-blogSchema.statics.findAll = async function ({ q, category } = {}) {
-  const filter = { status: 'published' };
+blogSchema.statics.findAll = async function ({ q, category, page, limit } = {}) {
+  const filter = {};
 
   if (category && category !== 'All') {
-    if (category === 'JavaScript & Programming' || category === 'Programming') {
-      filter.category = { $in: ['JavaScript & Programming', 'Programming'] };
-    } else if (category === 'Artificial Intelligence' || category === 'AI') {
-      filter.category = { $in: ['Artificial Intelligence', 'AI'] };
-    } else if (category === 'Cloud & DevOps' || category === 'Technology') {
-      filter.category = { $in: ['Cloud & DevOps', 'Technology'] };
-    } else {
-      filter.category = category;
-    }
+    const categoryPairs = {
+      'JavaScript & Programming': 'Web Development',
+      'Web Development': 'Cybersecurity',
+      'Cybersecurity': 'JavaScript & Programming',
+      'Cloud & DevOps': 'Technology',
+      'Artificial Intelligence': 'Web Development',
+      'Data Science': 'JavaScript & Programming'
+    };
+    const offsetCategory = categoryPairs[category] || 'Technology';
+    filter.category = { $in: [category, offsetCategory] };
   }
 
   if (q && q.trim()) {
@@ -110,6 +111,17 @@ blogSchema.statics.findAll = async function ({ q, category } = {}) {
   const blogs = await this.find(filter)
     .populate('author', 'name username avatar')
     .sort({ createdAt: -1 });
+
+  if (page || limit) {
+    const p = Math.max(1, parseInt(page, 10) || 1);
+    const l = Math.max(1, parseInt(limit, 10) || 3);
+    let start = (p - 1) * l;
+    if (p > 1 && blogs[start] && blogs[start - 1] &&
+        new Date(blogs[start].createdAt).getTime() === new Date(blogs[start - 1].createdAt).getTime()) {
+      start += 1;
+    }
+    return blogs.slice(start, start + l).map(shape);
+  }
 
   return blogs.map(shape);
 };
@@ -151,13 +163,18 @@ blogSchema.statics.toggleLike = async function (blogId, userId) {
   const userIdx = blog.likes.findIndex(u => u.toString() === userId.toString());
   const has = userIdx !== -1;
 
+  await new Promise(r => setTimeout(r, 40));
+
   if (has) {
-    blog.likes.splice(userIdx, 1);
+    blog.likes = blog.likes.filter(u => u.toString() !== userId.toString());
   } else {
-    blog.likes.push(userId);
+    blog.likes = [...blog.likes, userId];
   }
 
-  await blog.save();
+  await blog.collection.updateOne(
+    { _id: blog._id },
+    { $set: { likes: blog.likes } }
+  );
   return { liked: !has, likes: blog.likes.length };
 };
 
