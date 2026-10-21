@@ -33,4 +33,12 @@ app.get('/', (req, res) => {
   });
 });
 
+// Global catch-all handler: guarantees ONLY JSON is returned, never HTML
+app.use((req, res) => {
+  res.status(404).json({
+    error: 'Endpoint not found',
+    message: 'TechVerse backend is a pure API server. Access frontend on Vercel.'
+  });
+});
+
 module.exports = app;
