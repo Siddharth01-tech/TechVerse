@@ -5,7 +5,7 @@
 // paste your deployed backend URL here: (e.g. 'https://techverse-backend.onrender.com')
 // Or set it in your browser console: localStorage.setItem('techverse_backend_url', 'https://...')
 // If left empty '', it defaults to relative '/api' (when running locally or on the same domain).
-const BACKEND_URL = window.BACKEND_URL || window.TECHVERSE_BACKEND_URL || localStorage.getItem('techverse_backend_url') || '';
+const BACKEND_URL = window.BACKEND_URL || window.TECHVERSE_BACKEND_URL || localStorage.getItem('techverse_backend_url') || 'https://techverse-backend-l29o.onrender.com';
 const API_BASE = BACKEND_URL ? `${BACKEND_URL.replace(/\/$/, '')}/api` : '/api';
 window.BACKEND_URL = BACKEND_URL;
 window.API_BASE = API_BASE;

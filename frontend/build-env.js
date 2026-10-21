@@ -13,6 +13,11 @@ if (!backendUrl && fs.existsSync(envFile)) {
   }
 }
 
+// Fallback to deployed Render backend if not specified
+if (!backendUrl) {
+  backendUrl = 'https://techverse-backend-l29o.onrender.com';
+}
+
 // Clean trailing slashes if present
 if (backendUrl) {
   backendUrl = backendUrl.replace(/\/+$/, '');
