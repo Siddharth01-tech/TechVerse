@@ -100,7 +100,7 @@
 
     recentList.innerHTML = blogs.map(b => `
       <div class="item" id="rb-${b.id}">
-        <img src="${esc(b.cover || 'assets/covers/git.svg')}" alt="" loading="lazy">
+        <img src="${esc(typeof getMediaUrl === 'function' ? getMediaUrl(b.cover) : (b.cover || 'assets/covers/git.svg'))}" alt="" loading="lazy">
         <div class="info">
           <h3><a href="blog.html?id=${b.id}">${esc(b.title)}</a></h3>
           <div class="meta">

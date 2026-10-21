@@ -3,10 +3,12 @@ const dns = require('dns');
 const mongoose = require('mongoose');
 
 // Configure custom DNS servers for MongoDB Atlas SRV query resolution on Windows
-dns.setServers([
-  '8.8.8.8',
-  '1.1.1.1'
-]);
+if (process.platform === 'win32') {
+  dns.setServers([
+    '8.8.8.8',
+    '1.1.1.1'
+  ]);
+}
 
 const connectDB = async () => {
   try {

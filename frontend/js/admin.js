@@ -84,7 +84,7 @@
         <tr id="admin-blog-${b.id}">
           <td>
             <div style="display:flex;align-items:center;gap:12px;">
-              <img src="${esc(b.cover || 'assets/covers/git.svg')}" style="width:48px;height:32px;border-radius:6px;object-fit:cover;background:#181820;" alt="">
+              <img src="${esc(typeof getMediaUrl === 'function' ? getMediaUrl(b.cover) : (b.cover || 'assets/covers/git.svg'))}" style="width:48px;height:32px;border-radius:6px;object-fit:cover;background:#181820;" alt="">
               <div>
                 <a href="blog.html?id=${b.id}" target="_blank" style="font-weight:700;color:#fff;">${esc(b.title)}</a>
                 <div style="font-size:12px;color:var(--tx-muted);">${b.likes} likes</div>

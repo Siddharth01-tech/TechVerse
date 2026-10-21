@@ -11,7 +11,7 @@
 
   box.innerHTML = `<span class="badge">${esc(b.category)}</span><h1>${esc(b.title)}</h1>
     <div class="meta"><span>By ${esc(b.author)}</span><span>${fmt(b.createdAt)}</span></div>
-    <img class="cover" src="${esc(b.cover || 'assets/covers/git.svg')}" alt="">
+    <img class="cover" src="${esc(typeof getMediaUrl === 'function' ? getMediaUrl(b.cover) : (b.cover || 'assets/covers/git.svg'))}" alt="">
     <div class="acts"><button class="pill" id="like" type="button"></button><button class="pill" id="mark" type="button"></button>
       ${b.isOwner ? `<a class="pill" href="write.html?id=${b.id}">Edit</a>` : ''}</div>
     <div class="msg" id="msg"></div>

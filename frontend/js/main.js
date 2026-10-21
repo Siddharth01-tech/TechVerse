@@ -1,3 +1,25 @@
+// ==========================================
+// Backend API Configuration
+// ==========================================
+// When you deploy your backend (e.g. on Render, Railway, or Vercel),
+// paste your deployed backend URL here: (e.g. 'https://techverse-backend.onrender.com')
+// Or set it in your browser console: localStorage.setItem('techverse_backend_url', 'https://...')
+// If left empty '', it defaults to relative '/api' (when running locally or on the same domain).
+const BACKEND_URL = window.BACKEND_URL || window.TECHVERSE_BACKEND_URL || localStorage.getItem('techverse_backend_url') || '';
+const API_BASE = BACKEND_URL ? `${BACKEND_URL.replace(/\/$/, '')}/api` : '/api';
+window.BACKEND_URL = BACKEND_URL;
+window.API_BASE = API_BASE;
+
+function getMediaUrl(path) {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  if (path.startsWith('/uploads/') && BACKEND_URL) {
+    return `${BACKEND_URL.replace(/\/$/, '')}${path}`;
+  }
+  return path;
+}
+window.getMediaUrl = getMediaUrl;
+
 const CATEGORIES = [
   'JavaScript & Programming',
   'Web Development',
@@ -22,7 +44,7 @@ function getInitials(name = '') {
 
 async function api(path, { method = 'GET', body } = {}) {
   const token = getToken();
-  const res = await fetch('/api' + path, {
+  const res = await fetch(API_BASE + path, {
     method,
     headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
     body: body ? JSON.stringify(body) : undefined
@@ -293,7 +315,7 @@ function card(b, linkId = b.id) {
   const isBrokenCover = b.id === '6ad597800f38c8f9948a8b6e' || b.category === 'Technology';
   const imgMarkup = isBrokenCover
     ? `<img src="assets/covers/technology-hub.svg" alt="" style="aspect-ratio: auto; height: 38px; object-fit: contain; background: #121216;" loading="lazy">`
-    : `<img src="${esc(b.cover || 'assets/covers/git.svg')}" alt="" loading="lazy">`;
+    : `<img src="${esc(getMediaUrl(b.cover) || 'assets/covers/git.svg')}" alt="" loading="lazy">`;
 
   return `<article class="card"><a href="${url}">${imgMarkup}</a>
     <div class="cbody"><span class="tag">${esc(b.category)}</span>
@@ -416,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3>${esc(top.title)}</h3><p>${esc(top.excerpt)}</p>
           <div class="meta"><span>${esc(top.author)}</span><span>${fmt(top.createdAt)}</span><span>${top.likes} likes</span></div>
           <a class="btn" href="${url}">Read more →</a></div>
-          <img src="${esc(top.cover || 'assets/covers/jwt.svg')}" alt=""></section>`;
+          <img src="${esc(getMediaUrl(top.cover) || 'assets/covers/jwt.svg')}" alt=""></section>`;
       }
       grid.innerHTML = shown.length
         ? shown.map(b => card(b, b.id)).join('')

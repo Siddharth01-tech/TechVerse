@@ -20,7 +20,7 @@
     const img = $('cover-preview-img');
     if (!box || !img) return;
     if (src && src.trim()) {
-      img.src = src.trim();
+      img.src = typeof getMediaUrl === 'function' ? getMediaUrl(src.trim()) : src.trim();
       box.style.display = 'flex';
     } else {
       box.style.display = 'none';
@@ -62,7 +62,8 @@
 
     try {
       const token = getToken();
-      const res = await fetch('/api/blogs/upload-image', {
+      const uploadUrl = (window.API_BASE || '/api') + '/blogs/upload-image';
+      const res = await fetch(uploadUrl, {
         method: 'POST',
         headers: token ? { Authorization: 'Bearer ' + token } : {},
         body: formData

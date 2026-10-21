@@ -13,6 +13,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/blogs', require('./routes/blogRoutes'));
 app.use('/api/comments', require('./routes/commentRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.get('/api/health', (req, res) => res.json({ status: 'ok', message: 'TechVerse backend is running' }));
 app.use('/api', (req, res) => res.status(404).json({ error: 'Route not found' }));
 
 // Static uploads serving
