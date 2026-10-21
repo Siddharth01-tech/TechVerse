@@ -1,12 +1,8 @@
 // ==========================================
 // Backend API Configuration
 // ==========================================
-// When you deploy your backend (e.g. on Render, Railway, or Vercel),
-// paste your deployed backend URL here: (e.g. 'https://techverse-backend.onrender.com')
-// Or set it in your browser console: localStorage.setItem('techverse_backend_url', 'https://...')
-// If left empty '', it defaults to relative '/api' (when running locally or on the same domain).
-const BACKEND_URL = window.BACKEND_URL || window.TECHVERSE_BACKEND_URL || localStorage.getItem('techverse_backend_url') || 'https://techverse-backend-l29o.onrender.com';
-const API_BASE = BACKEND_URL ? `${BACKEND_URL.replace(/\/$/, '')}/api` : '/api';
+const BACKEND_URL = 'https://techverse-backend-l29o.onrender.com';
+const API_BASE = 'https://techverse-backend-l29o.onrender.com/api';
 window.BACKEND_URL = BACKEND_URL;
 window.API_BASE = API_BASE;
 
@@ -44,14 +40,22 @@ function getInitials(name = '') {
 
 async function api(path, { method = 'GET', body } = {}) {
   const token = getToken();
-  const res = await fetch(API_BASE + path, {
-    method,
-    headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
-    body: body ? JSON.stringify(body) : undefined
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || 'Something went wrong. Try again.');
-  return data;
+  try {
+    const res = await fetch(API_BASE + path, {
+      method,
+      headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: 'Bearer ' + token } : {}) },
+      body: body ? JSON.stringify(body) : undefined
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      console.error('[TechVerse API Error]', res.status, API_BASE + path, data);
+      throw new Error(data.error || `Server returned ${res.status}. Please try again.`);
+    }
+    return data;
+  } catch (err) {
+    console.error('[TechVerse Fetch Failed]', API_BASE + path, err);
+    throw err;
+  }
 }
 
 function showMsg(el, text, type = 'err') {
