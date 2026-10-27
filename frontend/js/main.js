@@ -1,8 +1,8 @@
 // ==========================================
 // Backend API Configuration
 // ==========================================
-const BACKEND_URL = 'https://techverse-backend-l29o.onrender.com';
-const API_BASE = 'https://techverse-backend-l29o.onrender.com/api';
+const BACKEND_URL = 'https://tech-verse-eta.vercel.app';
+const API_BASE = 'https://tech-verse-eta.vercel.app/api';
 window.BACKEND_URL = BACKEND_URL;
 window.API_BASE = API_BASE;
 
