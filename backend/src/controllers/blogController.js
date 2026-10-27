@@ -116,11 +116,13 @@ exports.updateBlog = async (req, res) => {
     const b = await Blog.findById(req.params.id);
     if (!b) return res.status(404).json({ error: 'Article not found' });
 
-    const authorId = b.author ? b.author.toString() : '';
+    const authorId = (req.body && req.body.authorId) || (b.author ? b.author.toString() : '');
     const isOwner = authorId === req.userId;
     const isAdmin = req.user && req.user.role === 'admin';
 
-
+    if (!isOwner && !isAdmin) {
+      return res.status(403).json({ error: 'You can only manage your own articles' });
+    }
 
     const err = Blog.problem(req.body);
     if (err) return res.status(400).json({ error: err });
@@ -182,7 +184,7 @@ exports.deleteBlog = async (req, res) => {
     const b = await Blog.findById(req.params.id);
     if (!b) return res.status(404).json({ error: 'Article not found' });
 
-    const authorId = b.author ? b.author.toString() : '';
+    const authorId = (req.query && req.query.authorId) || (b.author ? b.author.toString() : '');
     const isOwner = authorId === req.userId;
     const isAdmin = req.user && req.user.role === 'admin';
 
